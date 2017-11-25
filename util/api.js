@@ -26,14 +26,25 @@ var sampleQuestions = [
         deckId : "ABCDEF", 
         question: "Who is NEO?", 
         answer: "He is the ONE."
+    }, 
+    {
+        id : "q3", 
+        deckId : "B166ER", 
+        question: "Who is Tiesto", 
+        answer: "Tirsj from Netherlands."
     }
 ];
 
-var sampleDeckList =[ {
-    id : "ABCDEF",
-    title : "Matrix Trivia", 
-    questions : ['q1','q2']
-}];
+var sampleDeckList =[ 
+    {
+        id : "ABCDEF",
+        title : "Matrix Trivia", 
+    }, 
+    {
+        id:"B166ER", 
+        title:"EDM Trivia"
+    }
+];
 
 if (debug === true){
     try{
@@ -63,6 +74,12 @@ export const getCards = () => {
     });
 }
 
+export const getCardsByDeckId = ( deckId ) => {
+    return getCards().then((cards) => {
+        let filteredCards  = cards.filter((element) => element.deckId === deckId );
+        return filteredCards;
+    });
+}
 /**
  * getDeck: take in a single id argument and return the deck associated with that id. 
  */
@@ -85,7 +102,6 @@ export const saveDeckTitle = (title) => {
         let newDeck = {
             id, 
             title, 
-            questions : []
         };
         
         list.push( newDeck );
