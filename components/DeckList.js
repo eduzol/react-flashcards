@@ -15,20 +15,6 @@ class DeckList extends Component {
                 (list) => {
                    this.setState({deckList:list});
                 }) ;
-    
-
-        DeckAPI.getDeck('ABCDEF').then( (deck)=> {
-                console.log('Single Deck ' + JSON.stringify(deck));
-        }); 
-/*
-        DeckAPI.saveDeckTitle('Futbol').then( () => {
-            DeckAPI.getDecks().then(
-                (list) => {
-                  console.log('*********** ' + JSON.stringify(list) );
-                }) ;
-        });
-    */
-       
     }
     render(){
 
