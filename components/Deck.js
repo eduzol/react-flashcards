@@ -22,11 +22,11 @@ class Deck extends Component {
         let cardsLength = cards.length;
         return (
             <View style={styles.container} >
-                <Text>{deck.title} </Text>
+                <Text  style={styles.title}>{deck.title} </Text>
                 {cardsLength === 1 ? 
-                    <Text>{cardsLength} card</Text>
+                    <Text  style={styles.cardNumber}>{cardsLength} card</Text>
                 :
-                    <Text>{cardsLength} cards</Text>
+                    <Text  style={styles.cardNumber}>{cardsLength} cards</Text>
                 }
             </View>
         );
@@ -37,9 +37,22 @@ class Deck extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
+      backgroundColor: '#FFFFFF',
+      borderColor: '#FAFAFA',
+      borderRadius: 4,
+      borderWidth: 0.5,
       justifyContent: 'center',
+      alignItems: 'center',
+      margin: 30,
+      padding: 50,
+    },
+    title: {
+      fontSize: 32,
+      textAlign: 'center',
+    },
+    cardNumber: {
+      fontSize: 24,
+      textAlign: 'center',
     },
   });
 

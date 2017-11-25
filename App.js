@@ -6,7 +6,9 @@ export default class App extends React.Component {
   
   render() {
     return (
-      <DeckList />
+      <View style={styles.container}>
+        <DeckList />
+      </View>
     );
   }
 }
@@ -14,7 +16,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
   },
