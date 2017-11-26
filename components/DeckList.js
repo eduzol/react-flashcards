@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, FlatList, TouchableOpacity,Text,  ScrollView ,View } from 'react-native';
 import * as  DeckAPI from '../util/api.js'; 
 import Deck from './Deck';
+import DeckDetails  from './DeckDetails';
 
 class DeckList extends Component {
 
@@ -9,6 +10,13 @@ class DeckList extends Component {
         deckList : []
     };
 
+    navigate = ( deck ) =>{
+        this.props.navigation.navigate(
+            'DeckDetails',
+            {deck}
+        );
+    }
+    
     componentDidMount(){
         
         DeckAPI.getDecks().then(
@@ -19,7 +27,11 @@ class DeckList extends Component {
     }
 
     renderDeck = ({item}) =>{
-        return <Deck deck={item} />
+        return (
+            <TouchableOpacity onPress={() => this.navigate(item)}>
+                <Deck deck={item} />
+            </TouchableOpacity>
+        );
     };
 
 
