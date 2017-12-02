@@ -6,6 +6,7 @@ import { Constants } from 'expo';
 
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck';
+import DeckDetails from './components/DeckDetails';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -45,7 +46,23 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
+    navigationOptions: {
+      headerTintColor:'#FFFFFF',
+      headerStyle: {
+        backgroundColor:'#0275d8',
+      },
+    },
   },
+  DeckDetails : {
+    screen: DeckDetails,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.params.deck.title,
+      headerTintColor: '#FFFFFF',
+      headerStyle: {
+        backgroundColor: '#0275d8',
+      },
+    })
+  }
 });
 
 
