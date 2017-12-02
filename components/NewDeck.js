@@ -16,6 +16,10 @@ class NewDeck extends Component {
         let title = this.state.title;
         DeckAPI.saveDeckTitle(title).then( (newDeck) => {
            
+            DeckAPI.getFullDecks().then( (decks) => {
+                console.log('Decks ' + JSON.stringify(decks) );
+            });
+
             this.props.navigation.navigate(
                 'DeckList'
             );
