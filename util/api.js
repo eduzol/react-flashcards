@@ -63,7 +63,8 @@ if (debug === true){
 export const getDecks = () =>{
     return AsyncStorage.getItem(deckKey)
             .then(results =>{
-                return JSON.parse(results);
+                let decks =  JSON.parse(results);
+                return decks;
             });
 }
 
@@ -74,7 +75,28 @@ export const getCards = () => {
     });
 }
 
+export const getFullDecks = () =>{
+
+    return new Promise((resolve, reject) => {
+        
+        getDecks().then( (decks) => {
+            getCards().then(( cards) => {
+                let fullDecks = [];
+                decks.forEach(deck => {
+                    let filteredCards = cards.filter( card => card.deckId === deck.id );
+                    deck.cards = filteredCards;
+                    fullDecks.push( deck );
+                });
+                resolve(fullDecks);
+            });
+        });
+        
+    });
+
+}
+
 export const getCardsByDeckId = ( deckId ) => {
+    
     return getCards().then((cards) => {
         let filteredCards  = cards.filter((element) => element.deckId === deckId );
         return filteredCards;
