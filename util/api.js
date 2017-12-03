@@ -166,25 +166,3 @@ export const addCardToDeck = (deckId, card ) =>{
     });
 };
 
-/**
- * Sample usage
- *        
-        DeckAPI.getDeck('ABCDEF').then( (deck)=> {
-                console.log('Single Deck ' + JSON.stringify(deck));
-        }); 
-
-        DeckAPI.saveDeckTitle('Futbol').then( (newDeck) => {
-           console.log('newDeck ' + JSON.stringify(newDeck));
-           DeckAPI.getDecks().then(
-            (list) => {
-                console.log('newDeck ***  ' + JSON.stringify(list));
-                DeckAPI.addCardToDeck('Futbol' , {question: 'Sample question 1 ' , answer: 'Sample answer 1'})
-                .then(() => {
-                    DeckAPI.getCards().then((cards) => {
-                        console.log('cards .. ' + JSON.stringify(cards));
-                    });
-                });            
-            });
-
-        });
-*/

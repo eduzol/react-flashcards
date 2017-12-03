@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {StyleSheet, FlatList, TouchableOpacity,Text, TextInput,View, KeyboardAvoidingView } from 'react-native';
+import QuizResults from './QuizResults';
 
 class Quiz extends Component {
 
@@ -31,12 +32,23 @@ class Quiz extends Component {
     handleIncorrectAnswer = () => {
 
         let currentCard  = this.state.currentCard+1;
-        let score = this.state.score-1;
         
         this.setState({
             currentCard, 
-            score, 
             showAnswer: false
+        });
+    }
+
+    navigateToDeck = () => {
+        this.restartQuiz();
+        this.props.goBack();
+    }
+
+    restartQuiz = () => {
+        this.setState({
+            currentCard : 0, 
+            score : 0, 
+            showAnswer : false
         });
     }
 
@@ -45,11 +57,20 @@ class Quiz extends Component {
         let deck = this.props.deck;
         let cards = this.props.cards;
         
+        if ( this.state.currentCard === cards.length){
+            return (
+                <QuizResults score = {this.state.score} 
+                             deck = {deck}
+                             cards = {cards}
+                             onRestart = {this.restartQuiz}
+                             onShowDeck = {this.navigateToDeck} />
+            );
+        }
+
         return (
             <View style={styles.container} >
                 <Text>{deck.title} Trivia. Question {this.state.currentCard+1} of {cards.length} </Text>
                 <View style={styles.quizContainer}>
-                    
                     {this.state.showAnswer === false ? 
                         ( <Text style={styles.title}>{cards[this.state.currentCard].question}</Text>) :
                         ( <Text style={styles.title}>{cards[this.state.currentCard].answer}</Text>)
@@ -118,6 +139,7 @@ function mapStateToProps (state, { navigation }) {
   
 function mapDispatchToProps(dispatch, { navigation }){
     return {
+        goBack: () => navigation.goBack(),
         navigate: data => navigation.dispatch(NavigationActions.navigate(data)),
     }
 }
