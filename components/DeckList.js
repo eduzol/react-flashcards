@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import {StyleSheet, FlatList, TouchableOpacity,Text,  ScrollView ,View } from 'react-native';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import {getDecks } from '../actions';
 import * as  DeckAPI from '../util/api.js'; 
 import Deck from './Deck';
 import DeckDetails  from './DeckDetails';
 
 class DeckList extends Component {
 
-    state = {
-        decks : []
-    };
-
     navigate = ( deck ) =>{
         
-        this.props.navigation.navigate(
-            'DeckDetails',
-            {deck}
-        );
+        this.props.navigate({
+            routeName: 'DeckDetails',
+            params:{deck}
+        });
     }
     
     componentDidMount(){
        
         DeckAPI.getFullDecks().then(
                 (list) => {
-                  this.setState({decks:list});
-        });  
+                    this.props.getDecks(list);
+                }
+        );  
 
     }
 
@@ -39,7 +39,7 @@ class DeckList extends Component {
 
     render(){
 
-        let decks = this.state.decks;
+        let decks = this.props.decks;
         
         return (
             <FlatList
@@ -51,4 +51,18 @@ class DeckList extends Component {
     }
 }
 
-export default DeckList;
+
+function  mapStateToProps (state ){
+    return {
+        decks : state.decks
+    };
+}
+
+function mapDispatchToProps(dispatch, { navigation }) {
+    return {
+        navigate: data => navigation.dispatch(NavigationActions.navigate(data)),
+        getDecks: data => dispatch(getDecks(data)),
+    };
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList);

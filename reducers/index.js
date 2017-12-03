@@ -5,17 +5,20 @@ import { $for } from 'core-js/library/web/timers';
 
 var initialState = {
     decks : [], 
-    questions : []
+    cards : []
 };
 
 function deckReducer ( state =initialState, action){
 
     switch ( action.type ) {
         case GET_DECKS:
-        return {
-            ...state, 
-            'decks' : action.decks
-        }
+            return {
+                ...state, 
+                'decks' : action.decks
+            }
+        
+        default:
+            return state;
     }
 }
 
