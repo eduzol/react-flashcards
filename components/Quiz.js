@@ -75,11 +75,10 @@ class Quiz extends Component {
                         ( <Text style={styles.title}>{cards[this.state.currentCard].question}</Text>) :
                         ( <Text style={styles.title}>{cards[this.state.currentCard].answer}</Text>)
                     }
-                   
                     <TouchableOpacity style={styles.button} onPress={() => this.toggleShowAnswer()}>
                     {this.state.showAnswer === true ? 
-                        (<Text style={{color:'#FFFFFF', fontSize:18}}>Show question</Text>):
-                        (<Text style={{color:'#FFFFFF', fontSize:18}}>Show answer</Text>)
+                        (<Text style={{color:'#FFFFFF', fontSize:16}}>Show question</Text>):
+                        (<Text style={{color:'#FFFFFF', fontSize:16}}>Show answer</Text>)
                     }   
                     </TouchableOpacity>
                 </View>

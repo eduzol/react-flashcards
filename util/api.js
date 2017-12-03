@@ -1,12 +1,12 @@
 import { AsyncStorage } from 'react-native';
 
-const key = "eduzol-flashcards";
+const key = "eduzol-github-cards";
 const deckKey = key+"-decks";
 const questionsKey = key+"-questions";
 
 let decks = [];
 let questions = [];
-let debug = true;
+let debug = false;
 
 /* 
     Sample Data Model
@@ -45,7 +45,7 @@ var sampleDeckList =[
         title:"EDM Trivia"
     }
 ];
-
+/*
 if (debug === true){
     try{
         let deckListJson = JSON.stringify(sampleDeckList);
@@ -55,7 +55,7 @@ if (debug === true){
         console.log("Error " , error);
     }
     
-}
+}*/
 
 /**
  * getDecks: return all of the decks along with their titles, questions, and answers. 
@@ -63,7 +63,11 @@ if (debug === true){
 export const getDecks = () =>{
     return AsyncStorage.getItem(deckKey)
             .then(results =>{
+
                 let decks =  JSON.parse(results);
+                if (!decks){
+                    decks = []
+                }
                 return decks;
             });
 }
@@ -71,7 +75,11 @@ export const getDecks = () =>{
 export const getCards = () => {
     return AsyncStorage.getItem(questionsKey)
     .then(results =>{
-        return JSON.parse(results);
+        let cards  =  JSON.parse(results);
+        if(!cards){
+            cards = []
+        }
+        return cards;
     });
 }
 
