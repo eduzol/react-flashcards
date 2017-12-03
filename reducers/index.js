@@ -1,7 +1,5 @@
-import { GET_DECKS} from '../actions';
 import { combineReducers } from 'redux';
-import { $for } from 'core-js/library/web/timers';
-
+import { GET_DECKS, GET_CARDS} from '../actions';
 
 var initialState = {
     decks : [], 
@@ -11,15 +9,23 @@ var initialState = {
 function deckReducer ( state =initialState, action){
 
     switch ( action.type ) {
+        
         case GET_DECKS:
             return {
                 ...state, 
                 'decks' : action.decks
             }
         
+        case GET_CARDS:
+            return {
+                ...state, 
+                'cards': action.cards
+            }
+        
         default:
             return state;
     }
 }
+
 
 export default deckReducer;
