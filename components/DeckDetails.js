@@ -60,7 +60,8 @@ function mapStateToProps (state, { navigation }) {
     deck.cards = state.cards.filter((card) => card.deckId === deckId );
    
     return  {
-        deck 
+        deck , 
+        cardLenght: state.cards.length
     };
 
 }

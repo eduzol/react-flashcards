@@ -137,26 +137,32 @@ export const saveDeckTitle = (title) => {
 addCardToDeck: take in two arguments, title and card, and will add the card 
 to the list of questions for the deck with the associated title.  
 */
-export const addCardToDeck = (title, card ) =>{
+export const addCardToDeck = (deckId, card ) =>{
 
     let id = Math.random().toString(36).substr(-8);
-    return getDecks().then( (list) => {
-        
-        let deck = list.find( (element ) => element.title === title  );
-        if ( deck ){
-            let deckId = deck.id;
-            var newQuestion = {
-                id, 
-                deckId, 
-                ...card
-            };
-            return getCards().then((cards) => {
-                cards.push(newQuestion);
-                AsyncStorage.setItem(questionsKey,JSON.stringify(cards));
-            });
-        }else{
-            console.log('deck with title ' + title + ' not found ');
-        }
+
+    return new Promise((resolve, reject) => {
+
+        getDecks().then( (list) => {
+            
+            let deck = list.find( (element ) => element.id === deckId  );
+            if ( deck ){
+                let deckId = deck.id;
+                var newCard = {
+                    id, 
+                    deckId, 
+                    ...card
+                };
+                return getCards().then((cards) => {
+                    cards.push(newCard);
+                    AsyncStorage.setItem(questionsKey,JSON.stringify(cards));
+                    resolve(newCard);
+                });
+            }else{
+                console.log('deck with id ' + deckId + ' not found ');
+                reject();
+            }
+        });
     });
 };
 
