@@ -7,24 +7,31 @@ import Deck from './Deck';
 
 class DeckDetails extends Component {
 
+    navigateToNewCard = () =>{
+
+        let deck = this.props.deck;
+        this.props.navigate({
+            routeName: 'NewCard',
+            params:{deck}
+        });
+
+    }
+
     render () {
+
         let item = this.props.deck;
     
         return (
             <View style={styles.container} >
-               
                 <Deck deck={item} />
-             
                 <View style={{  justifyContent: 'center', flexDirection: 'row'}}>
                     <TouchableOpacity style={styles.button}>
                         <Text style={{color:'#FFFFFF'}}>Start Trivia</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button}>
+                   <TouchableOpacity style={styles.button} onPress={() => this. navigateToNewCard()}>
                         <Text style={{color:'#FFFFFF'}}>Add Card</Text>
                     </TouchableOpacity>
                 </View>
-
             </View>
         );
 

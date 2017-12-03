@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_DECKS, GET_CARDS, ADD_DECK } from '../actions';
+import { GET_DECKS, GET_CARDS, ADD_DECK, ADD_CARD } from '../actions';
 
 var initialState = {
     decks : [], 
@@ -26,6 +26,12 @@ function deckReducer ( state =initialState, action){
             return {
                 ...state, 
                 'decks' : state.decks.concat(action.deck)
+            }
+        
+        case ADD_CARD:
+            return {
+                ...state, 
+                'cards': state.cards.concat(action.card)
             }
             
         default:
