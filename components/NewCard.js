@@ -9,7 +9,9 @@ class NewCard extends Component {
     
     state = {
         question : '', 
-        answer : ''
+        answer : '', 
+        questionValidationMessage:'', 
+        answerValidationMessage:''
     }
 
     onQuestionChange = (question) => {
@@ -22,15 +24,26 @@ class NewCard extends Component {
 
     onSubmit = () => {
         
+        if ( !this.state.question){
+            var questionValidationMessage = "Question field cannot be blank";
+        }
+
+        if (!this.state.answer){
+            var answerValidationMessage = "Answer field cannot be blank";
+        }
+
+        if (!this.state.question || !this.state.answer){
+            this.setState({questionValidationMessage, answerValidationMessage});
+            return;
+        }
+
         let deck =  this.props.deck;
         let card  ={
             question : this.state.question, 
             answer : this.state.answer
         };
         
-        console.log('adding card  ' + JSON.stringify(card) );
-
-       
+        
         DeckAPI.addCardToDeck(deck.id ,card)
         .then((newCard) => {
             this.props.addCard(newCard);
@@ -52,6 +65,10 @@ class NewCard extends Component {
                     style={styles.input}
                     value={this.state.question}
                 />
+                <Text>
+                    {this.state.questionValidationMessage}
+                </Text>
+
 
                 <Text style={styles.text}>
                    Enter Answer
@@ -62,6 +79,9 @@ class NewCard extends Component {
                     style={styles.input}
                     value={this.state.answer}
                 />
+                 <Text>
+                 {this.state.answerValidationMessage}
+                </Text>
     
             <TouchableOpacity onPress={this.onSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>

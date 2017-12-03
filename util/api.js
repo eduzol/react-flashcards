@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-const key = "eduzol-github-com-cards";
+const key = "eduzol-github-com-flash-cards";
 const deckKey = key+"-decks";
 const questionsKey = key+"-questions";
 
