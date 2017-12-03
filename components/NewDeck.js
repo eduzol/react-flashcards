@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, FlatList, TouchableOpacity,Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { addDeck } from '../actions';
+import { addDeck, setDeck } from '../actions';
 import * as  DeckAPI from '../util/api.js'; 
 
 class NewDeck extends Component {
@@ -20,8 +20,12 @@ class NewDeck extends Component {
         let title = this.state.title;
         DeckAPI.saveDeckTitle(title).then( (newDeck) => {
             this.props.addDeck(newDeck);
+           
+            this.props.setDeck(newDeck.id);
+            this.setState({title:''});
             this.props.navigate({
-                    routeName: 'Home'
+                routeName: 'DeckDetails',
+                params:{newDeck}
             });
         });
     }
@@ -38,7 +42,8 @@ class NewDeck extends Component {
                     style={styles.input}
                     value={this.state.title}
                 />
-    
+
+               
             <TouchableOpacity onPress={this.onSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
@@ -82,13 +87,22 @@ const styles = StyleSheet.create({
         margin: 10,
     }
   });
+
+
+ function mapStateToProps (state, { navigation }) {
+  
+    return  {
+        navigation 
+    };
+}  
   
 function mapDispatchToProps(dispatch, { navigation }){
     return {
         navigate: data => navigation.dispatch(NavigationActions.navigate(data)),
         addDeck: data => dispatch(addDeck(data)),
+        setDeck: data => dispatch(setDeck(data)),
     }
 }
 
-export default connect(null, mapDispatchToProps)(NewDeck);
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeck);
 

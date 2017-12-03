@@ -8,6 +8,10 @@ import {clearLocalNotification, setLocalNotification } from '../util/helpers';
 
 class DeckDetails extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
     
     navigateToQuiz = () => {
 
@@ -77,7 +81,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state, { navigation }) {
     
-    let deckId = navigation.state.params.deck.id;
+    //fix for https://github.com/react-community/react-navigation/issues/143
+    let deckId = navigation.state.params.deck ? navigation.state.params.deck.id : state.currentDeck;
     let deck = state.decks.find( (deck) => deck.id === deckId);
     deck.cards = state.cards.filter((card) => card.deckId === deckId );
    
