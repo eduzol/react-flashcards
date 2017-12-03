@@ -27,17 +27,16 @@ function deckReducer ( state =initialState, action){
                 ...state, 
                 'decks' : state.decks.concat(action.deck)
             }
-        
+
         case ADD_CARD:
             return {
                 ...state, 
                 'cards': state.cards.concat(action.card)
             }
-            
+           
         default:
             return state;
     }
 }
-
 
 export default deckReducer;

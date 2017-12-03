@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-const key = "eduzol-github-cards";
+const key = "eduzol-github-com-cards";
 const deckKey = key+"-decks";
 const questionsKey = key+"-questions";
 
@@ -100,7 +100,6 @@ export const getFullDecks = () =>{
         });
         
     });
-
 }
 
 export const getCardsByDeckId = ( deckId ) => {

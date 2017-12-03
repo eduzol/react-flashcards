@@ -62,7 +62,7 @@ const MainNavigator = StackNavigator({
   DeckDetails : {
     screen: DeckDetails,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params.deck.title,
+      title: 'Deck Details',
       headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#0275d8',
