@@ -7,6 +7,17 @@ import Deck from './Deck';
 
 class DeckDetails extends Component {
 
+
+    navigateToQuiz = () => {
+
+        let deck = this.props.deck;
+        this.props.navigate({
+            routeName: 'Quiz',
+            params:{deck}
+        });
+
+    }
+
     navigateToNewCard = () =>{
 
         let deck = this.props.deck;
@@ -14,7 +25,6 @@ class DeckDetails extends Component {
             routeName: 'NewCard',
             params:{deck}
         });
-
     }
 
     render () {
@@ -25,7 +35,7 @@ class DeckDetails extends Component {
             <View style={styles.container} >
                 <Deck deck={item} />
                 <View style={{  justifyContent: 'center', flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => this. navigateToQuiz()}>
                         <Text style={{color:'#FFFFFF'}}>Start Trivia</Text>
                     </TouchableOpacity>
                    <TouchableOpacity style={styles.button} onPress={() => this. navigateToNewCard()}>
@@ -63,7 +73,6 @@ function mapStateToProps (state, { navigation }) {
         deck , 
         cardLenght: state.cards.length
     };
-
 }
   
 function mapDispatchToProps(dispatch, { navigation }){
