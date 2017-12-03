@@ -9,6 +9,7 @@ class NewDeck extends Component {
 
     state = {
         title: '',
+        validationMessage : ''
     };
 
     onTitleChange  = (title) => {
@@ -18,11 +19,16 @@ class NewDeck extends Component {
     onSubmit = () => {
 
         let title = this.state.title;
+        if ( !title){
+            this.setState({validationMessage: 'Deck title cannot be blank.'});
+            return;
+        }
+
         DeckAPI.saveDeckTitle(title).then( (newDeck) => {
             this.props.addDeck(newDeck);
            
             this.props.setDeck(newDeck.id);
-            this.setState({title:''});
+            this.setState({title:'', validationMessage:''});
             this.props.navigate({
                 routeName: 'DeckDetails',
                 params:{newDeck}
@@ -43,6 +49,9 @@ class NewDeck extends Component {
                     value={this.state.title}
                 />
 
+                <Text style={styles.titleText}>
+                   {this.state.validationMessage}
+                </Text>
                
             <TouchableOpacity onPress={this.onSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
