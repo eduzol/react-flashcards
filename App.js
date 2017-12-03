@@ -3,10 +3,14 @@ import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
+import devToolsEnhancer from 'remote-redux-devtools';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck';
 import DeckDetails from './components/DeckDetails';
+import deckReducer from './reducers';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -63,6 +67,7 @@ const MainNavigator = StackNavigator({
       },
     })
   }
+ 
 });
 
 
@@ -70,10 +75,12 @@ export default class App extends React.Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <AppStatusBar backgroundColor='#0275d8' barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(deckReducer, devToolsEnhancer())}>
+        <View style={styles.container}>
+          <AppStatusBar backgroundColor='#0275d8' barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
