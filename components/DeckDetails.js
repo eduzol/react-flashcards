@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import * as  DeckAPI from '../util/api.js'; 
 import Deck from './Deck';
+import {clearLocalNotification, setLocalNotification } from '../util/helpers';
 
 class DeckDetails extends Component {
 
-
+    
     navigateToQuiz = () => {
 
         let deck = this.props.deck;
+        clearLocalNotification().then(setLocalNotification);
         this.props.navigate({
             routeName: 'Quiz',
             params:{deck}
