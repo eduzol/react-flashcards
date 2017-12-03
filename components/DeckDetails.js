@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
   
 
 function mapStateToProps (state, { navigation }) {
+    
     let deckId = navigation.state.params.deck.id;
-   
     let deck = state.decks.find( (deck) => deck.id === deckId);
     deck.cards = state.cards.filter((card) => card.deckId === deckId );
    
     return  {
-            deck 
+        deck 
     };
 
 }

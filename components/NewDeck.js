@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {StyleSheet, FlatList, TouchableOpacity,Text, TextInput, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { addDeck } from '../actions';
 import * as  DeckAPI from '../util/api.js'; 
 
 class NewDeck extends Component {
@@ -13,24 +16,21 @@ class NewDeck extends Component {
     }
 
     onSubmit = () => {
+
         let title = this.state.title;
         DeckAPI.saveDeckTitle(title).then( (newDeck) => {
-           
-            DeckAPI.getFullDecks().then( (decks) => {
-                console.log('Decks ' + JSON.stringify(decks) );
+            this.props.addDeck(newDeck);
+            this.props.navigate({
+                    routeName: 'Home'
             });
-
-            this.props.navigation.navigate(
-                'DeckList'
-            );
-        })
+        });
     }
     render () {
         return (
 
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <Text style={styles.buttonText}>
-                   Deck Title
+                <Text style={styles.titleText}>
+                   Enter Deck Title
                 </Text>
     
                 <TextInput
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     button: {
+        backgroundColor: '#0275d8',
         padding: 10,
         alignSelf: 'center',
         margin: 10,
@@ -64,10 +65,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius:2 ,
     },
+    titleText: {
+        fontSize: 20,
+    },
     buttonText: {
+        color: '#FFFFFF',
         fontSize: 20,
     },
     input: {
+        backgroundColor: '#ffffff',
         width: 300,
         height: 44,
         padding: 8,
@@ -77,6 +83,12 @@ const styles = StyleSheet.create({
     }
   });
   
+function mapDispatchToProps(dispatch, { navigation }){
+    return {
+        navigate: data => navigation.dispatch(NavigationActions.navigate(data)),
+        addDeck: data => dispatch(addDeck(data)),
+    }
+}
 
-export default NewDeck;
+export default connect(null, mapDispatchToProps)(NewDeck);
 
