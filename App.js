@@ -11,6 +11,7 @@ import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck';
 import DeckDetails from './components/DeckDetails';
 import NewCard from './components/NewCard';
+import Quiz from './components/Quiz';
 import deckReducer from './reducers';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
@@ -61,7 +62,7 @@ const MainNavigator = StackNavigator({
   DeckDetails : {
     screen: DeckDetails,
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.params.deck.title,
+      title: 'Deck Details',
       headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#0275d8',
@@ -77,7 +78,17 @@ const MainNavigator = StackNavigator({
         backgroundColor: '#0275d8',
       },
     })
-  }
+  }, 
+  Quiz :  {
+    screen :Quiz, 
+    navigationOptions: ({ navigation }) => ({
+      title: 'Trivia',
+      headerTintColor: '#FFFFFF',
+      headerStyle: {
+        backgroundColor: '#0275d8',
+      },
+    })
+  }, 
  
 });
 

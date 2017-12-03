@@ -1,12 +1,12 @@
 import { AsyncStorage } from 'react-native';
 
-const key = "eduzol-flashcards";
+const key = "eduzol-github-com-cards";
 const deckKey = key+"-decks";
 const questionsKey = key+"-questions";
 
 let decks = [];
 let questions = [];
-let debug = true;
+let debug = false;
 
 /* 
     Sample Data Model
@@ -45,7 +45,7 @@ var sampleDeckList =[
         title:"EDM Trivia"
     }
 ];
-
+/*
 if (debug === true){
     try{
         let deckListJson = JSON.stringify(sampleDeckList);
@@ -55,7 +55,7 @@ if (debug === true){
         console.log("Error " , error);
     }
     
-}
+}*/
 
 /**
  * getDecks: return all of the decks along with their titles, questions, and answers. 
@@ -63,7 +63,11 @@ if (debug === true){
 export const getDecks = () =>{
     return AsyncStorage.getItem(deckKey)
             .then(results =>{
+
                 let decks =  JSON.parse(results);
+                if (!decks){
+                    decks = []
+                }
                 return decks;
             });
 }
@@ -71,7 +75,11 @@ export const getDecks = () =>{
 export const getCards = () => {
     return AsyncStorage.getItem(questionsKey)
     .then(results =>{
-        return JSON.parse(results);
+        let cards  =  JSON.parse(results);
+        if(!cards){
+            cards = []
+        }
+        return cards;
     });
 }
 
@@ -92,7 +100,6 @@ export const getFullDecks = () =>{
         });
         
     });
-
 }
 
 export const getCardsByDeckId = ( deckId ) => {
@@ -166,25 +173,3 @@ export const addCardToDeck = (deckId, card ) =>{
     });
 };
 
-/**
- * Sample usage
- *        
-        DeckAPI.getDeck('ABCDEF').then( (deck)=> {
-                console.log('Single Deck ' + JSON.stringify(deck));
-        }); 
-
-        DeckAPI.saveDeckTitle('Futbol').then( (newDeck) => {
-           console.log('newDeck ' + JSON.stringify(newDeck));
-           DeckAPI.getDecks().then(
-            (list) => {
-                console.log('newDeck ***  ' + JSON.stringify(list));
-                DeckAPI.addCardToDeck('Futbol' , {question: 'Sample question 1 ' , answer: 'Sample answer 1'})
-                .then(() => {
-                    DeckAPI.getCards().then((cards) => {
-                        console.log('cards .. ' + JSON.stringify(cards));
-                    });
-                });            
-            });
-
-        });
-*/

@@ -43,6 +43,14 @@ class DeckList extends Component {
 
         let decks = this.props.decks;
         
+        if (decks.length === 0 ){
+            return (
+                <View style={styles.container}>
+                    <Text>There are currently no Decks</Text>
+                </View>
+            );
+        }
+
         return (
             <FlatList
               data={decks}
@@ -53,16 +61,25 @@ class DeckList extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#F5F5F5',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+});
+
 function  mapStateToProps (state ){
     
     let fullDecks = [];
-
-    state.decks.forEach(deck => {
-        let filteredCards = state.cards.filter( card => card.deckId === deck.id );
-        deck.cards = filteredCards;
-        fullDecks.push( deck );
-    });
-
+    if (state.decks && state.decks.length > 0 ){
+        state.decks.forEach(deck => {
+            let filteredCards = state.cards.filter( card => card.deckId === deck.id );
+            deck.cards = filteredCards;
+            fullDecks.push( deck );
+        });
+    }
     return  {
         decks :fullDecks
     };

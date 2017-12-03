@@ -33,15 +33,8 @@ class NewCard extends Component {
        
         DeckAPI.addCardToDeck(deck.id ,card)
         .then((newCard) => {
-
             this.props.addCard(newCard);
             this.props.goBack();
-            /* 
-            this.props.navigate({
-                routeName: 'DeckDetails',
-                params:{deck}
-            });
-            */
         });    
     }
 
