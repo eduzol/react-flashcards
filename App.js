@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck';
 import DeckDetails from './components/DeckDetails';
+import NewCard from './components/NewCard';
 import deckReducer from './reducers';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
@@ -61,6 +62,16 @@ const MainNavigator = StackNavigator({
     screen: DeckDetails,
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.deck.title,
+      headerTintColor: '#FFFFFF',
+      headerStyle: {
+        backgroundColor: '#0275d8',
+      },
+    })
+  }, 
+  NewCard : {
+    screen : NewCard, 
+    navigationOptions: ({ navigation }) => ({
+      title: 'Add card to deck',
       headerTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#0275d8',
