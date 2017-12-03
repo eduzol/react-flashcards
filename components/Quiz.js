@@ -15,6 +15,31 @@ class Quiz extends Component {
         this.setState({showAnswer: !showAnswer});
     }
 
+    handleCorrectAnswer = () => {
+        
+        let currentCard  = this.state.currentCard+1;
+        let score = this.state.score+1;
+        
+        this.setState({
+            currentCard, 
+            score, 
+            showAnswer: false
+        });
+
+    }
+
+    handleIncorrectAnswer = () => {
+
+        let currentCard  = this.state.currentCard+1;
+        let score = this.state.score-1;
+        
+        this.setState({
+            currentCard, 
+            score, 
+            showAnswer: false
+        });
+    }
+
     render() {
 
         let deck = this.props.deck;
@@ -38,10 +63,10 @@ class Quiz extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{  justifyContent: 'center', flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={() => this.handleIncorrectAnswer()} >
                         <Text style={{color:'#FFFFFF'}}>Incorrect</Text>
                     </TouchableOpacity>
-                   <TouchableOpacity style={styles.button} >
+                   <TouchableOpacity style={styles.button} onPress={() => this.handleCorrectAnswer()}>
                         <Text style={{color:'#FFFFFF'}}>Correct</Text>
                     </TouchableOpacity>
                 </View>
