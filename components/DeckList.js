@@ -27,7 +27,6 @@ class DeckList extends Component {
                     });
                 }
         );  
-
     }
 
     renderDeck = ({item}) =>{
@@ -53,7 +52,6 @@ class DeckList extends Component {
         );
     }
 }
-
 
 function  mapStateToProps (state ){
     
