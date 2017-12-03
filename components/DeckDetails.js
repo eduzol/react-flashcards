@@ -35,7 +35,9 @@ class DeckDetails extends Component {
             <View style={styles.container} >
                 <Deck deck={item} />
                 <View style={{  justifyContent: 'center', flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.button} onPress={() => this. navigateToQuiz()}>
+                    <TouchableOpacity style={item.cards.length === 0?styles.buttonDisabled :styles.button} 
+                        disabled = {item.cards.length === 0}
+                        onPress={() => this. navigateToQuiz()}>
                         <Text style={{color:'#FFFFFF'}}>Start Trivia</Text>
                     </TouchableOpacity>
                    <TouchableOpacity style={styles.button} onPress={() => this. navigateToNewCard()}>
@@ -59,6 +61,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 20,
         backgroundColor:'#0275d8'
+    }, 
+    buttonDisabled :{
+        alignSelf: 'center',
+        margin: 20, 
+        borderColor:'#000000',
+        borderWidth: 1,
+        padding: 20,
+        backgroundColor:'#ACACAC'
     }
 });
   
